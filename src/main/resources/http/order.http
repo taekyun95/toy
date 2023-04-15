@@ -1,0 +1,17 @@
+### 주문 등록
+POST http://localhost:8080/api/orders
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "status": "PENDING"
+}
+
+### 주문 상태변경
+PATCH http://localhost:8080/api/orders/status
+Content-Type: application/json
+
+{
+  "orderIds": [1, 2, 3, 4],
+  "status": "DELIVERED"
+}
