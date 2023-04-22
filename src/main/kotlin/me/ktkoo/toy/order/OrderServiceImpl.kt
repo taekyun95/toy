@@ -12,7 +12,7 @@ class OrderServiceImpl(private val orderRepository: OrderRepository) : OrderServ
     override fun createOrder(orderDto: OrderDto): Order {
         val order = Order(
             userId = orderDto.userId,
-            status = orderDto.status
+            status = orderDto.status,
         )
         val savedOrder = orderRepository.save(order)
         logger.info { "Order created: $savedOrder" }

@@ -22,14 +22,13 @@ data class User(
     val password: String? = null,
 
     @Column(nullable = false)
-    val phoneNumber: String? = null
+    val phoneNumber: String? = null,
 ) {
     companion object {
         fun fromDto(userDto: UserDto): User = User(
             email = userDto.email,
             password = userDto.password,
-            phoneNumber = userDto.phoneNumber
+            phoneNumber = userDto.phoneNumber,
         )
     }
 }
-

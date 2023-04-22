@@ -31,7 +31,7 @@ class UserServiceImpl(private val userRepository: UserRepository) : UserService 
             id = existingUser.id,
             email = updatedEmail,
             password = updatedPassword,
-            phoneNumber = updatedPhoneNumber
+            phoneNumber = updatedPhoneNumber,
         )
 
         userRepository.save(updatedUser)
@@ -55,7 +55,7 @@ class UserServiceImpl(private val userRepository: UserRepository) : UserService 
     private fun <T> validateAndUpdateValue(
         existingValue: T,
         newValue: T?,
-        validator: (T) -> Boolean
+        validator: (T) -> Boolean,
     ): T {
         return newValue?.let {
             if (!validator(it)) {
@@ -72,14 +72,14 @@ class UserServiceImpl(private val userRepository: UserRepository) : UserService 
     private fun updatePassword(existingPassword: String, newPassword: String?): String {
         return validateAndUpdateValue(
             existingPassword,
-            newPassword
+            newPassword,
         ) { password -> password.isValidPassword() }
     }
 
     private fun updatePhoneNumber(existingPhoneNumber: String, newPhoneNumber: String?): String {
         return validateAndUpdateValue(
             existingPhoneNumber,
-            newPhoneNumber
+            newPhoneNumber,
         ) { phoneNumber -> phoneNumber.isValidPhoneNumber() }
     }
 }

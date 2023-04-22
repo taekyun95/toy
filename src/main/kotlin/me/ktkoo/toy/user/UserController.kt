@@ -25,7 +25,7 @@ class UserController(private val userService: UserService) {
     @PutMapping("/{id}")
     fun updateUser(
         @PathVariable id: Long,
-        @RequestBody userUpdateDto: UserUpdateDto
+        @RequestBody userUpdateDto: UserUpdateDto,
     ): ResponseEntity<Any> {
         return try {
             val updatedUser = userService.updateUser(id, userUpdateDto)

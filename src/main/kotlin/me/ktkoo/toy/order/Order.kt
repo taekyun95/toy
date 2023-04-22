@@ -10,7 +10,6 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.time.LocalDateTime
 
-
 @Entity
 @Table(name = "orders")
 data class Order(
@@ -28,5 +27,5 @@ data class Order(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    val status: OrderStatus = OrderStatus.PENDING
+    val status: OrderStatus = OrderStatus.PENDING,
 )
