@@ -1,5 +1,6 @@
 package me.ktkoo.toy.orderproduct
 
+import common.BaseEntity
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
@@ -24,4 +25,4 @@ data class OrderProduct(
     val stockQuantity: Long,
 
     val price: BigDecimal,
-)
+) : BaseEntity()

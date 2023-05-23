@@ -1,5 +1,6 @@
 package me.ktkoo.toy.order
 
+import common.BaseEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
@@ -28,4 +29,4 @@ data class Order(
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     val status: OrderStatus = OrderStatus.PENDING,
-)
+) : BaseEntity()

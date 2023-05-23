@@ -1,5 +1,6 @@
 package me.ktkoo.toy.product
 
+import common.BaseEntity
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
@@ -13,7 +14,7 @@ class Product(
     private val price: BigDecimal,
     private var stockQuantity: Long,
     private var status: ProductStatus = ProductStatus.AVAILABLE,
-) {
+) : BaseEntity() {
     fun order(stockQuantity: Long) {
         if (stockQuantity > this.stockQuantity) {
             throw IllegalArgumentException("Requested quantity $stockQuantity exceeds available stock.")
