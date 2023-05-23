@@ -23,9 +23,9 @@ class OrderServiceImpl(
         val savedOrder = orderRepository.save(order)
         logger.info { "Order created: $savedOrder" }
 
-        orderDto.productDtos.forEach {
+        orderDto.orderProductDtos.forEach {
             val product = productService.findById(it.productId)
-            product.order(it.count)
+            product.order(it.stockQuantity)
             /**
              * processOrderProduct를 OrderController에서 호출하지 않는 이유
              * Controller에 비즈니스 로직을 알고 있어야 하기 때문입니다.

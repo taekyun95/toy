@@ -4,7 +4,6 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
 import java.math.BigDecimal
-import java.math.BigInteger
 
 @Entity
 class Product(
@@ -12,17 +11,17 @@ class Product(
     private val id: Long? = null,
     private val name: String,
     private val price: BigDecimal,
-    private var count: BigInteger,
-    private var status: ProductStatus,
+    private var stockQuantity: Long,
+    private var status: ProductStatus = ProductStatus.AVAILABLE,
 ) {
-    fun order(count: BigInteger) {
-        if (count > this.count) {
-            throw IllegalArgumentException("Requested quantity $count exceeds available stock.")
+    fun order(stockQuantity: Long) {
+        if (stockQuantity > this.stockQuantity) {
+            throw IllegalArgumentException("Requested quantity $stockQuantity exceeds available stock.")
         }
 
-        this.count = this.count.subtract(count)
+        this.stockQuantity -= stockQuantity
 
-        if (this.count == BigInteger.ZERO) {
+        if (this.stockQuantity == 0L) {
             this.status = ProductStatus.OUT_OF_STOCK
         }
     }

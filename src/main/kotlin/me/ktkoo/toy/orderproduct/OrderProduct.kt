@@ -5,7 +5,6 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
 import jakarta.persistence.ManyToOne
 import java.math.BigDecimal
-import java.math.BigInteger
 import me.ktkoo.toy.order.Order
 import me.ktkoo.toy.product.Product
 
@@ -22,7 +21,7 @@ data class OrderProduct(
     @ManyToOne
     val product: Product,
 
-    val count: BigInteger,
+    val stockQuantity: Long,
 
     val price: BigDecimal,
 )
