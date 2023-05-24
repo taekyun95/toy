@@ -16,14 +16,14 @@ open class BaseEntity {
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
-    var createdAt: ZonedDateTime? = null
+    var createdAt: ZonedDateTime = ZonedDateTime.now()
 
     @LastModifiedDate
     @Column(name = "updated_at")
     var updatedAt: ZonedDateTime? = null
 
     @CreatedBy
-    @Column(name = "created_by", nullable = false, updatable = false)
+    @Column(name = "created_by", updatable = false)
     var createdBy: String? = null
 
     @LastModifiedBy

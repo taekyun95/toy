@@ -1,0 +1,9 @@
+### 상품 등록
+POST http://localhost:8080/api/product
+Content-Type: application/json
+
+{
+  "name": "상품명",
+  "price": 1000000,
+  "stockQuantity": 1000
+}
