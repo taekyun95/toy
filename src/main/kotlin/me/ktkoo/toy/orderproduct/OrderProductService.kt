@@ -15,7 +15,7 @@ class OrderProductService(
             order = order,
             product = product,
             stockQuantity = orderProductDto.stockQuantity,
-            price = product.getPrice(),
+            price = product.price,
         )
         orderProductRepository.save(orderProduct)
     }
