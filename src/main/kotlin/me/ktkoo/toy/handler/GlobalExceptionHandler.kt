@@ -1,32 +1,39 @@
 package me.ktkoo.toy.handler
 
 import common.ErrorResponse
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.bind.annotation.ResponseStatus
 
 @ControllerAdvice
 class GlobalExceptionHandler {
 
+    private val logger = LoggerFactory.getLogger(javaClass)
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun handleValidationExceptions(ex: MethodArgumentNotValidException): List<String> {
+        val errors = ex.bindingResult.allErrors.mapNotNull { it.defaultMessage }
+
+        logger.error("Validation error: $errors", ex)
+
+        return errors
+    }
+
     @ExceptionHandler(Exception::class)
-    fun handleException(ex: Exception): ResponseEntity<ErrorResponse> {
-        val errorResponse = ErrorResponse("Internal Server Error", ex.message)
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    fun handleException(ex: Exception): ErrorResponse {
+        logger.error("Internal Server Error: ", ex)
+        return ErrorResponse("Internal Server Error", ex.message ?: "")
     }
 
-    @ExceptionHandler(IllegalArgumentException::class)
-    fun handleIllegalArgumentException(ex: IllegalArgumentException): ResponseEntity<ErrorResponse> {
-        return badRequest(ex)
-    }
-
-    @ExceptionHandler(NoSuchElementException::class)
-    fun handleIllegalArgumentException(ex: NoSuchElementException): ResponseEntity<ErrorResponse> {
-        return badRequest(ex)
-    }
-
-    private fun badRequest(ex: Exception): ResponseEntity<ErrorResponse> {
-        val errorResponse = ErrorResponse("Bad Request", ex.message)
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse)
+    @ExceptionHandler(IllegalArgumentException::class, NoSuchElementException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun handleIllegalArgumentException(ex: Exception): ErrorResponse {
+        logger.error("Bad Request: ", ex)
+        return ErrorResponse("Bad Request", ex.message ?: "")
     }
 }
