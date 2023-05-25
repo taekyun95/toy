@@ -9,11 +9,11 @@ import java.math.BigDecimal
 @Entity
 class Product(
     @Id @GeneratedValue
-    private val id: Long? = null,
-    private val name: String,
-    private val price: BigDecimal,
-    private var stockQuantity: Long,
-    private var status: ProductStatus = ProductStatus.AVAILABLE,
+    val id: Long? = null,
+    val name: String,
+    val price: BigDecimal,
+    var stockQuantity: Long,
+    var status: ProductStatus = ProductStatus.AVAILABLE,
 ) : BaseEntity() {
     fun order(stockQuantity: Long) {
         if (stockQuantity > this.stockQuantity) {
@@ -25,9 +25,5 @@ class Product(
         if (this.stockQuantity == 0L) {
             this.status = ProductStatus.OUT_OF_STOCK
         }
-    }
-
-    fun getPrice(): BigDecimal {
-        return this.price
     }
 }

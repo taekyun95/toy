@@ -1,5 +1,6 @@
 package me.ktkoo.toy.product
 
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -7,13 +8,17 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class ProductService(private val productRepository: ProductRepository) {
 
-    fun createProduct(productDto: ProductDto) {
+    private val logger = LoggerFactory.getLogger(javaClass)
+
+    fun createProduct(productDto: ProductDto): ProductResponseDto {
         val newProduct = Product(
             name = productDto.name,
             price = productDto.price,
             stockQuantity = productDto.stockQuantity,
         )
-        productRepository.save(newProduct)
+        val savedProduct = productRepository.save(newProduct)
+        logger.info("Created new product: $savedProduct")
+        return ProductResponseDto.fromEntity(savedProduct)
     }
 
     @Transactional(readOnly = true)

@@ -15,11 +15,11 @@ class ProductController(
 ) {
 
     @PostMapping
-    fun newProduct(
+    fun createProduct(
         @Valid @RequestBody
         productDto: ProductDto,
-    ): ResponseEntity<Void> {
-        productService.createProduct(productDto)
-        return ResponseEntity(HttpStatus.CREATED)
+    ): ResponseEntity<ProductResponseDto> {
+        val productResponse = productService.createProduct(productDto)
+        return ResponseEntity(productResponse, HttpStatus.CREATED)
     }
 }
