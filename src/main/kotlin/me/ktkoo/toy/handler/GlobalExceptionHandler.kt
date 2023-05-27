@@ -1,6 +1,6 @@
 package me.ktkoo.toy.handler
 
-import common.ErrorResponse
+import me.ktkoo.toy.common.ErrorResponse
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.MethodArgumentNotValidException

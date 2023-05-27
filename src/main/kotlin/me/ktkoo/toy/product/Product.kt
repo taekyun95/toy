@@ -1,10 +1,10 @@
 package me.ktkoo.toy.product
 
-import common.BaseEntity
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
 import java.math.BigDecimal
+import me.ktkoo.toy.common.BaseEntity
 
 @Entity
 class Product(

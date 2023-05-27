@@ -1,4 +1,4 @@
-package common
+package me.ktkoo.toy.common
 
 import jakarta.persistence.Column
 import jakarta.persistence.EntityListeners

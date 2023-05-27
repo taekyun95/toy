@@ -1,11 +1,11 @@
 package me.ktkoo.toy.orderproduct
 
-import common.BaseEntity
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
 import jakarta.persistence.ManyToOne
 import java.math.BigDecimal
+import me.ktkoo.toy.common.BaseEntity
 import me.ktkoo.toy.order.Order
 import me.ktkoo.toy.product.Product
 
