@@ -1,5 +1,5 @@
 ### 상품 등록
-POST http://localhost:8080/api/product
+POST http://localhost:8080/api/products
 Content-Type: application/json
 
 {
@@ -7,3 +7,7 @@ Content-Type: application/json
   "price": 1000000,
   "stockQuantity": 1000
 }
+
+### 상품 조뢰
+GET http://localhost:8080/api/productssize=3&page=2
+Content-Type: application/json

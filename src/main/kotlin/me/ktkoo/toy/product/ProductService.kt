@@ -1,6 +1,8 @@
 package me.ktkoo.toy.product
 
 import org.slf4j.LoggerFactory
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -25,5 +27,10 @@ class ProductService(private val productRepository: ProductRepository) {
     fun findById(productId: Long): Product {
         return productRepository.findById(productId)
             .orElseThrow { NoSuchElementException("Product with id: $productId not found.") }
+    }
+
+    @Transactional(readOnly = true)
+    fun getProducts(pageable: Pageable): Page<Product> {
+        return productRepository.findAll(pageable)
     }
 }
