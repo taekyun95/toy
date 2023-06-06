@@ -10,7 +10,7 @@ import me.ktkoo.toy.order.Order
 import me.ktkoo.toy.product.Product
 
 @Entity
-data class OrderProduct(
+class OrderProduct(
 
     @Id
     @GeneratedValue

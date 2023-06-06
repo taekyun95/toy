@@ -13,7 +13,7 @@ import me.ktkoo.toy.common.BaseEntity
 
 @Entity
 @Table(name = "orders")
-data class Order(
+class Order(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
