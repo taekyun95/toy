@@ -4,7 +4,12 @@ Content-Type: application/json
 
 {
   "userId": 1,
-  "status": "PENDING"
+  "orderProduct": [
+    {
+      "productId": 1,
+      "stockQuantity": 1
+    }
+  ]
 }
 
 ### 주문 상태변경
@@ -15,3 +20,7 @@ Content-Type: application/json
   "orderIds": [1, 2, 3, 4],
   "status": "DELIVERED"
 }
+
+### 사용자 주문목록 조회
+GET http://localhost:8080/api/orders?userId=1&size=100
+Content-Type: application/json

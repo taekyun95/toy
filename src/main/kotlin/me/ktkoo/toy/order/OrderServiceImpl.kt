@@ -3,6 +3,8 @@ package me.ktkoo.toy.order
 import me.ktkoo.toy.orderproduct.OrderProductService
 import me.ktkoo.toy.product.ProductService
 import mu.KotlinLogging
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -23,7 +25,7 @@ class OrderServiceImpl(
         val savedOrder = orderRepository.save(order)
         logger.info { "Order created: $savedOrder" }
 
-        orderDto.orderProductDtos.forEach {
+        orderDto.orderProduct.forEach {
             val product = productService.findById(it.productId)
             product.order(it.stockQuantity)
             /**
@@ -39,5 +41,9 @@ class OrderServiceImpl(
     @Transactional
     override fun updateOrderStatus(orderIds: List<Long>, status: OrderStatus): Int {
         return orderRepository.updateOrderStatus(orderIds, status)
+    }
+
+    override fun getOrders(userId: Long, pageable: Pageable): Page<List<Order>> {
+        return orderRepository.findByUserId(userId, pageable)
     }
 }

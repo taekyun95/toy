@@ -6,5 +6,5 @@ import me.ktkoo.toy.orderproduct.OrderProductDto
 data class OrderDto(
     val userId: Long,
     @Size(min = 1)
-    val orderProductDtos: List<OrderProductDto>,
+    val orderProduct: List<OrderProductDto>,
 )

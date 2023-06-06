@@ -8,7 +8,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
-import java.time.LocalDateTime
+import java.time.ZonedDateTime
 import me.ktkoo.toy.common.BaseEntity
 
 @Entity
@@ -24,7 +24,7 @@ class Order(
     val userId: Long,
 
     @Column(name = "order_date_time", nullable = false)
-    val orderDateTime: LocalDateTime = LocalDateTime.now(),
+    val orderDateTime: ZonedDateTime = ZonedDateTime.now(),
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
