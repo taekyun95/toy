@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import me.ktkoo.toy.common.BaseEntity
 
 @Entity
 @Table(name = "Users")
@@ -23,7 +24,7 @@ class User(
 
     @Column(nullable = false)
     val phoneNumber: String? = null,
-) {
+) : BaseEntity() {
     companion object {
         fun fromDto(userDto: UserDto): User = User(
             email = userDto.email,
