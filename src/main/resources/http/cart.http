@@ -1,0 +1,10 @@
+### 장바구니 등록
+
+POST http://localhost:8080/api/carts
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "productId": 1,
+  "quantity": 1
+}

@@ -26,7 +26,7 @@ class OrderServiceImpl(
         logger.info { "Order created: $savedOrder" }
 
         orderDto.orderProduct.forEach {
-            val product = productService.findById(it.productId)
+            val product = productService.getProduct(it.productId)
             product.order(it.stockQuantity)
             /**
              * processOrderProduct를 OrderController에서 호출하지 않는 이유

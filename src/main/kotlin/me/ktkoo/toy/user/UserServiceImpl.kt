@@ -38,6 +38,10 @@ class UserServiceImpl(private val userRepository: UserRepository) : UserService 
         return updatedUser
     }
 
+    override fun getUser(id: Long): User {
+        return userRepository.findById(id).orElseThrow { NoSuchElementException("User not found.") }
+    }
+
     private fun validateUserInput(userDto: UserDto) {
         if (!userDto.email.isValidEmail()) {
             throw IllegalArgumentException("Invalid email format.")
