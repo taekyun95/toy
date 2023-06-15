@@ -24,7 +24,6 @@ repositories {
 
 dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    runtimeOnly("com.h2database:h2")
     implementation("ch.qos.logback:logback-classic:1.4.6")
     implementation("com.querydsl:querydsl-jpa") // QueryDSL JPA
     implementation("io.github.microutils:kotlin-logging:3.0.5")
