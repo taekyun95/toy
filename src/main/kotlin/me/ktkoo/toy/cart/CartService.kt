@@ -3,23 +3,31 @@ package me.ktkoo.toy.cart
 import me.ktkoo.toy.product.ProductService
 import me.ktkoo.toy.user.UserService
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
+@Transactional
 class CartService(
     private val cartRepository: CartRepository,
     private val userService: UserService,
     private val productService: ProductService,
 ) {
+
     fun createCart(cartRequest: CartRequest): Cart {
-        Cart(
-            user = userService.getUser(cartRequest.userId),
-            product = productService.getProduct(cartRequest.productId),
+        val user = userService.getUser(cartRequest.userId)
+        val product = productService.getProduct(cartRequest.productId)
+        if (product.stockQuantity < cartRequest.quantity) throw IllegalArgumentException("Requested quantity exceeds stock quantity.")
+
+        return Cart(
+            user = user,
+            product = product,
             quantity = cartRequest.quantity,
         ).let {
-            return cartRepository.save(it)
+            cartRepository.save(it)
         }
     }
 
+    @Transactional(readOnly = true)
     fun getCarts(userId: Long): List<CartResponse> {
         return cartRepository.findByUser_Id(userId).map {
             CartResponse(
@@ -33,5 +41,17 @@ class CartService(
                 quantity = it.quantity,
             )
         }
+    }
+
+    fun deleteCart(id: Long) {
+        val cart = cartRepository.findById(id).orElseThrow { NoSuchElementException("Cart with id: $id not found.") }
+        cartRepository.delete(cart)
+    }
+
+    fun updateCart(id: Long, quantity: Int): Cart {
+        val cartItem = cartRepository.findById(id).orElseThrow { NoSuchElementException("Cart not found with ID: $id") }
+        if (cartItem.product.stockQuantity < quantity) throw IllegalArgumentException("Requested quantity exceeds stock quantity.")
+        cartItem.quantity = quantity
+        return cartRepository.save(cartItem)
     }
 }
