@@ -20,4 +20,8 @@ class Cart(
     val product: Product,
 
     var quantity: Int,
-)
+) {
+    fun getId(): Long {
+        return id ?: throw Exception("Cart id is null")
+    }
+}

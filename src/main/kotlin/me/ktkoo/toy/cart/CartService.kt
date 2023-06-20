@@ -19,4 +19,19 @@ class CartService(
             return cartRepository.save(it)
         }
     }
+
+    fun getCarts(userId: Long): List<CartResponse> {
+        return cartRepository.findByUser_Id(userId).map {
+            CartResponse(
+                id = it.getId(),
+                userId = userId,
+                productId = it.product.getId(),
+                productName = it.product.name,
+                productPrice = it.product.price,
+                productStockQuantity = it.product.stockQuantity,
+                productStatus = it.product.status,
+                quantity = it.quantity,
+            )
+        }
+    }
 }

@@ -26,4 +26,8 @@ class Product(
             this.status = ProductStatus.OUT_OF_STOCK
         }
     }
+
+    fun getId(): Long {
+        return id ?: throw Exception("Product id is null")
+    }
 }

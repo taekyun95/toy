@@ -8,3 +8,8 @@ Content-Type: application/json
   "productId": 1,
   "quantity": 1
 }
+
+### 장바구니 조회
+
+GET http://localhost:8080/api/carts/1
+Content-Type: application/json
