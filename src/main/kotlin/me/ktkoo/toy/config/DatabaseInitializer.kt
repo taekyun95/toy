@@ -10,6 +10,8 @@ import me.ktkoo.toy.orderproduct.OrderProductRepository
 import me.ktkoo.toy.product.Product
 import me.ktkoo.toy.product.ProductRepository
 import me.ktkoo.toy.product.ProductService
+import me.ktkoo.toy.user.User
+import me.ktkoo.toy.user.UserRepository
 import mu.KotlinLogging
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Service
@@ -20,7 +22,8 @@ class DatabaseInitializer(
 	private val productRepository: ProductRepository,
 	private val orderRepository: OrderRepository,
 	private val productService: ProductService,
-	private val orderProductRepository: OrderProductRepository
+	private val orderProductRepository: OrderProductRepository,
+	private val userRepository: UserRepository,
 ) :
 	CommandLineRunner {
 	private val random = Random()
@@ -80,5 +83,7 @@ class DatabaseInitializer(
 
 		orderProductRepository.saveAll(orderProductsToSave)
 		logger.info { "Orders created: $savedOrders" }
+
+		userRepository.save(User(email = "test@gmail.com", password = "1234", phoneNumber = "010-1234-5678"))
 	}
 }

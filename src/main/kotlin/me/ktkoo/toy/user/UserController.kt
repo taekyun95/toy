@@ -1,6 +1,7 @@
 package me.ktkoo.toy.user
 
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
@@ -27,13 +28,23 @@ class UserController(private val userService: UserService) {
         @PathVariable id: Long,
         @RequestBody userUpdateDto: UserUpdateDto,
     ): ResponseEntity<Any> {
-        return try {
-            val updatedUser = userService.updateUser(id, userUpdateDto)
-            ResponseEntity.ok(updatedUser)
-        } catch (e: IllegalArgumentException) {
-            ResponseEntity.badRequest().body(e.message)
-        } catch (e: NoSuchElementException) {
-            ResponseEntity.notFound().build<Any>()
-        }
+	    return try {
+		    val updatedUser = userService.updateUser(id, userUpdateDto)
+		    ResponseEntity.ok(updatedUser)
+	    } catch (e: IllegalArgumentException) {
+		    ResponseEntity.badRequest().body(e.message)
+	    } catch (e: NoSuchElementException) {
+		    ResponseEntity.notFound().build<Any>()
+	    }
     }
+
+	@GetMapping("/{id}")
+	fun getUser(@PathVariable id: Long): ResponseEntity<Any> {
+		return try {
+			val user = userService.getUser(id)
+			ResponseEntity.ok(user)
+		} catch (e: NoSuchElementException) {
+			ResponseEntity.notFound().build()
+		}
+	}
 }

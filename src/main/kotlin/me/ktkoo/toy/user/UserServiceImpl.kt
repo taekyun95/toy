@@ -4,6 +4,7 @@ import me.ktkoo.toy.extensions.isValidEmail
 import me.ktkoo.toy.extensions.isValidPassword
 import me.ktkoo.toy.extensions.isValidPhoneNumber
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UserServiceImpl(private val userRepository: UserRepository) : UserService {
@@ -38,9 +39,10 @@ class UserServiceImpl(private val userRepository: UserRepository) : UserService 
         return updatedUser
     }
 
-    override fun getUser(id: Long): User {
-        return userRepository.findById(id).orElseThrow { NoSuchElementException("User not found.") }
-    }
+	@Transactional
+	override fun getUser(id: Long): User {
+		return userRepository.findById(id).orElseThrow { NoSuchElementException("User not found.") }
+	}
 
     private fun validateUserInput(userDto: UserDto) {
         if (!userDto.email.isValidEmail()) {
