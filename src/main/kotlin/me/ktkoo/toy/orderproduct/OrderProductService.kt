@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class OrderProductService(
+open class OrderProductService(
     private val orderProductRepository: OrderProductRepository,
 ) {
     @Transactional
-    fun processOrderProduct(orderProductDto: OrderProductDto, order: Order, product: Product) {
+    open fun processOrderProduct(orderProductDto: OrderProductDto, order: Order, product: Product) {
         val orderProduct = OrderProduct(
             order = order,
             product = product,

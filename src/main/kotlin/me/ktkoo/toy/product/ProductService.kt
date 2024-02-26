@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional
-class ProductService(private val productRepository: ProductRepository) {
+open class ProductService(private val productRepository: ProductRepository) {
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
@@ -24,13 +24,13 @@ class ProductService(private val productRepository: ProductRepository) {
     }
 
     @Transactional(readOnly = true)
-    fun getProduct(productId: Long): Product {
+    open fun getProduct(productId: Long): Product {
         return productRepository.findById(productId)
             .orElseThrow { NoSuchElementException("Product with id: $productId not found.") }
     }
 
     @Transactional(readOnly = true)
-    fun getProducts(pageable: Pageable): Page<Product> {
+    open fun getProducts(pageable: Pageable): Page<Product> {
         return productRepository.findAll(pageable)
     }
 }

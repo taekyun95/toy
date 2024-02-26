@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class UserServiceImpl(private val userRepository: UserRepository) : UserService {
+open class UserServiceImpl(private val userRepository: UserRepository) : UserService {
 
     override fun createUser(userDto: UserDto): User {
         validateUserInput(userDto)

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class OrderServiceImpl(
+open class OrderServiceImpl(
     private val orderRepository: OrderRepository,
     private val productService: ProductService,
     private val orderProductService: OrderProductService,
