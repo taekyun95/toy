@@ -34,7 +34,7 @@ class UserController(private val userService: UserService) {
 	    } catch (e: IllegalArgumentException) {
 		    ResponseEntity.badRequest().body(e.message)
 	    } catch (e: NoSuchElementException) {
-		    ResponseEntity.notFound().build<Any>()
+		    ResponseEntity.notFound().build()
 	    }
     }
 
