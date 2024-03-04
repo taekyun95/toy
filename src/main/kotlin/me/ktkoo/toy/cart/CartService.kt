@@ -29,7 +29,7 @@ open class CartService(
 
     @Transactional(readOnly = true)
     open fun getCarts(userId: Long): List<CartResponse> {
-        return cartRepository.findByUser_Id(userId).map {
+        return cartRepository.findByUserId(userId).map {
             CartResponse(
                 id = it.getId(),
                 userId = userId,

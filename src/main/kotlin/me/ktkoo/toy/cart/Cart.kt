@@ -10,7 +10,7 @@ import me.ktkoo.toy.user.User
 @Entity
 class Cart(
     @Id
-    @GeneratedValue()
+    @GeneratedValue
     var id: Long? = null,
 
     @ManyToOne
