@@ -33,7 +33,7 @@ class SecurityConfig(private val userDetailsService: UserDetailsService, private
         val jwtAuthFilter = JwtAuthFilter(jwtService, userDetailsService)
         return http.csrf().disable()
             .authorizeHttpRequests()
-            .requestMatchers("/auth/welcome", "/auth/addNewUser", "/auth").permitAll()
+            .requestMatchers("/auth").permitAll()
             .and()
             .authorizeHttpRequests().requestMatchers("/api/orders").authenticated()
             .and()

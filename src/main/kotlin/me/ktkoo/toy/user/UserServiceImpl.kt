@@ -47,7 +47,7 @@ class UserServiceImpl(private val userRepository: UserRepository, private val en
 
     override fun getUserByUsername(username: String): User {
         return userRepository.findByUsername(username)
-            .orElseThrow { UsernameNotFoundException("User not found $username") }
+            .orElseThrow { throw UsernameNotFoundException("User not found $username") }
     }
 
     private fun validateUserInput(userDto: UserDto) {
