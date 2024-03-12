@@ -2,6 +2,7 @@ package me.ktkoo.toy.order
 
 import me.ktkoo.toy.orderproduct.OrderProductService
 import me.ktkoo.toy.product.ProductService
+import me.ktkoo.toy.user.UserService
 import mu.KotlinLogging
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -13,15 +14,15 @@ open class OrderServiceImpl(
     private val orderRepository: OrderRepository,
     private val productService: ProductService,
     private val orderProductService: OrderProductService,
+    private val userService: UserService
 ) : OrderService {
 
     private val logger = KotlinLogging.logger {}
 
     @Transactional
-    override fun createOrder(orderDto: OrderDto): Order {
-        val order = Order(
-            userId = orderDto.userId,
-        )
+    override fun createOrder(orderDto: OrderDto, username: String): Order {
+
+        val order = Order(user = userService.getUserByUsername(username))
         val savedOrder = orderRepository.save(order)
         logger.info { "Order created: $savedOrder" }
 
@@ -45,5 +46,10 @@ open class OrderServiceImpl(
 
     override fun getOrders(userId: Long, pageable: Pageable): Page<List<Order>> {
         return orderRepository.findByUserId(userId, pageable)
+    }
+
+    override fun getOrders(username: String, pageable: Pageable): Page<List<Order>> {
+        val user = userService.getUserByUsername(username)
+        return orderRepository.findByUser(user, pageable)
     }
 }

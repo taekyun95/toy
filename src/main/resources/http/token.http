@@ -1,0 +1,28 @@
+### 사용자 등록
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "username": "tkkoo",
+  "email": "test@gmail.com",
+  "password": "Pw1234!@#$",
+  "phoneNumber": "+82 10 0000 0000"
+}
+
+### jwt 토큰 발급
+POST http://localhost:8080/auth
+Content-Type: application/json
+
+{
+  "username": "tkkoo",
+  "password": "Pw1234!@#$"
+}
+> {%
+    client.global.set("auth_token", response.body);
+%}
+
+### 사용자 조회
+GET http://localhost:8080/api/orders
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+

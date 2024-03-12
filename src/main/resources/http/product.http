@@ -9,5 +9,5 @@ Content-Type: application/json
 }
 
 ### 상품 조뢰
-GET http://localhost:8080/api/productssize=3&page=2
+GET http://localhost:8080/api/product?ssize=3&page=2
 Content-Type: application/json

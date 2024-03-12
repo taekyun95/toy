@@ -25,13 +25,17 @@ repositories {
 
 dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    implementation("ch.qos.logback:logback-classic:1.4.14")
-    implementation("com.querydsl:querydsl-jpa") // QueryDSL JPA
+    implementation("ch.qos.logback:logback-classic:1.4.6")
+    implementation("com.querydsl:querydsl-jpa")
     implementation("io.github.microutils:kotlin-logging:3.0.5")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+    implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
+    implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
     implementation("mysql:mysql-connector-java:8.0.33")
     annotationProcessor("com.querydsl:querydsl-apt")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

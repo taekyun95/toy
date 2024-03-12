@@ -3,15 +3,17 @@ package me.ktkoo.toy.user
 import me.ktkoo.toy.extensions.isValidEmail
 import me.ktkoo.toy.extensions.isValidPassword
 import me.ktkoo.toy.extensions.isValidPhoneNumber
+import org.springframework.security.core.userdetails.UsernameNotFoundException
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-open class UserServiceImpl(private val userRepository: UserRepository) : UserService {
+class UserServiceImpl(private val userRepository: UserRepository, private val encoder: PasswordEncoder) : UserService {
 
     override fun createUser(userDto: UserDto): User {
         validateUserInput(userDto)
-
+        userDto.encodingPassword = encoder.encode(userDto.password)
         val user = User.fromDto(userDto)
 
         userRepository.save(user)
@@ -22,14 +24,13 @@ open class UserServiceImpl(private val userRepository: UserRepository) : UserSer
         val existingUser =
             userRepository.findById(id).orElseThrow { NoSuchElementException("User not found.") }
 
-        val updatedEmail = existingUser.email?.let { updateEmail(it, userUpdateDto.email) }
-        val updatedPassword =
-            existingUser.password?.let { updatePassword(it, userUpdateDto.password) }
-        val updatedPhoneNumber =
-            existingUser.phoneNumber?.let { updatePhoneNumber(it, userUpdateDto.phoneNumber) }
+        val updatedEmail = updateEmail(existingUser.email, userUpdateDto.email)
+        val updatedPassword = updatePassword(existingUser.password, userUpdateDto.password)
+        val updatedPhoneNumber = updatePhoneNumber(existingUser.phoneNumber, userUpdateDto.phoneNumber)
 
         val updatedUser = User(
             id = existingUser.id,
+            username = existingUser.username,
             email = updatedEmail,
             password = updatedPassword,
             phoneNumber = updatedPhoneNumber,
@@ -39,10 +40,15 @@ open class UserServiceImpl(private val userRepository: UserRepository) : UserSer
         return updatedUser
     }
 
-	@Transactional
-	override fun getUser(id: Long): User {
-		return userRepository.findById(id).orElseThrow { NoSuchElementException("User not found.") }
-	}
+    @Transactional
+    override fun getUser(id: Long): User {
+        return userRepository.findById(id).orElseThrow { NoSuchElementException("User not found.") }
+    }
+
+    override fun getUserByUsername(username: String): User {
+        return userRepository.findByUsername(username)
+            .orElseThrow { UsernameNotFoundException("User not found $username") }
+    }
 
     private fun validateUserInput(userDto: UserDto) {
         if (!userDto.email.isValidEmail()) {
