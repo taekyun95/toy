@@ -13,8 +13,7 @@ class UserServiceImpl(private val userRepository: UserRepository, private val en
 
     override fun createUser(userDto: UserDto): User {
         validateUserInput(userDto)
-        userDto.encodingPassword = encoder.encode(userDto.password)
-        val user = User.fromDto(userDto)
+        val user = User.fromDto(userDto, encoder.encode(userDto.password))
 
         userRepository.save(user)
         return user
@@ -51,8 +50,11 @@ class UserServiceImpl(private val userRepository: UserRepository, private val en
     }
 
     private fun validateUserInput(userDto: UserDto) {
-        if (!userDto.email.isValidEmail()) {
-            throw IllegalArgumentException("Invalid email format.")
+        if (userRepository.existsByUsername(userDto.username)) {
+            throw IllegalArgumentException("Username is already taken")
+        }
+        if (userRepository.existsByEmail(userDto.email)) {
+            throw IllegalArgumentException("Email is already in use")
         }
 
         if (!userDto.password.isValidPassword()) {

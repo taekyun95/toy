@@ -31,10 +31,10 @@ class User(
 
 ) : BaseEntity() {
     companion object {
-        fun fromDto(userDto: UserDto): User = User(
+        fun fromDto(userDto: UserDto, password: String): User = User(
             username = userDto.username,
             email = userDto.email,
-            password = userDto.encodingPassword,
+            password = password,
             phoneNumber = userDto.phoneNumber,
         )
     }
