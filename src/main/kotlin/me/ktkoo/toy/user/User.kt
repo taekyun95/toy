@@ -16,19 +16,25 @@ class User(
     @Column(name = "id")
     val id: Long? = null,
 
-    @Column(nullable = false)
-    val email: String? = null,
+    val username: String,
 
     @Column(nullable = false)
-    val password: String? = null,
+    val email: String,
 
     @Column(nullable = false)
-    val phoneNumber: String? = null,
+    val password: String,
+
+    @Column(nullable = false)
+    val phoneNumber: String,
+
+    val roles: String = "ROLE_USER"
+
 ) : BaseEntity() {
     companion object {
-        fun fromDto(userDto: UserDto): User = User(
+        fun fromDto(userDto: UserDto, password: String): User = User(
+            username = userDto.username,
             email = userDto.email,
-            password = userDto.password,
+            password = password,
             phoneNumber = userDto.phoneNumber,
         )
     }

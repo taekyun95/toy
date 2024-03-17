@@ -1,11 +1,9 @@
-# 빌드 스테이지
-FROM gradle:jdk11 AS build
-COPY --chown=gradle:gradle . /app
-WORKDIR /app
-RUN gradle clean build
+# 사용할 Java 버전 지정
+FROM openjdk:17-jdk-slim
 
-# 실행 스테이지
-FROM openjdk:11-jre-slim
-EXPOSE 8080
-COPY --from=build /app/build/libs/toy-0.0.1-SNAPSHOT.jar /app/app.jar
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+# 애플리케이션 파일 복사
+ARG JAR_FILE=build/libs/*.jar
+COPY ${JAR_FILE} app.jar
+
+# 실행 명령어
+ENTRYPOINT ["java","-jar","/app.jar"]
