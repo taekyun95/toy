@@ -39,6 +39,7 @@ dependencies {
     implementation("mysql:mysql-connector-java:8.0.33")
     annotationProcessor("com.querydsl:querydsl-apt")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("com.h2database:h2:1.4.200")
 }
 
 tasks.withType<KotlinCompile> {

@@ -1,0 +1,19 @@
+spring:
+  h2:
+    console:
+      enabled: true # H2 콘솔 활성화
+      path: /h2-console # H2 콘솔 접근 경로
+  datasource:
+    driver-class-name: org.h2.Driver # H2 데이터베이스 드라이버
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE # 인메모리 데이터베이스 사용
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update # 데이터베이스 스키마 자동 업데이트
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # 물리적 명명 전략
+    defer-datasource-initialization: true # 데이터 소스 초기화 지연
+  sql:
+    init:
+      mode: always # 스프링 부트가 시작될 때 SQL 스크립트 실행
