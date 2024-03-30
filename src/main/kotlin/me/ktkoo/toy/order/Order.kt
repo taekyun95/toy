@@ -10,7 +10,6 @@ import jakarta.persistence.Id
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 import java.time.ZonedDateTime
-import me.ktkoo.toy.common.BaseEntity
 import me.ktkoo.toy.user.User
 
 @Entity
@@ -31,4 +30,4 @@ class Order(
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     val status: OrderStatus = OrderStatus.PENDING,
-) : BaseEntity()
+)

@@ -6,7 +6,6 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
-import me.ktkoo.toy.common.BaseEntity
 
 @Entity
 @Table(name = "Users")
@@ -29,7 +28,7 @@ class User(
 
     val roles: String = "ROLE_USER"
 
-) : BaseEntity() {
+) {
     companion object {
         fun fromDto(userDto: UserDto, password: String): User = User(
             username = userDto.username,
