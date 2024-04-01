@@ -20,9 +20,9 @@ class ProductController(
     @PostMapping
     fun createProduct(
         @Valid @RequestBody
-        productDto: ProductDto,
+        dto: RequestCreateProductDto,
     ): ResponseEntity<ProductResponseDto> {
-        val productResponse = productService.createProduct(productDto)
+        val productResponse = productService.createProduct(dto)
         return ResponseEntity(productResponse, HttpStatus.CREATED)
     }
 

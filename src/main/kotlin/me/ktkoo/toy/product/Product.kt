@@ -1,6 +1,8 @@
 package me.ktkoo.toy.product
 
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
 import java.math.BigDecimal
@@ -12,6 +14,7 @@ class Product(
     val name: String,
     val price: BigDecimal,
     var stockQuantity: Long,
+    @Enumerated(EnumType.STRING)
     var status: ProductStatus = ProductStatus.AVAILABLE,
 ) {
     fun order(stockQuantity: Long) {

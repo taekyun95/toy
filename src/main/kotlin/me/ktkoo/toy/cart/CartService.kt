@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional
-open class CartService(
+class CartService(
     private val cartRepository: CartRepository,
     private val userService: UserService,
     private val productService: ProductService,
@@ -15,7 +15,7 @@ open class CartService(
 
     fun createCart(cartRequest: CartRequest): Cart {
         val user = userService.getUser(cartRequest.userId)
-        val product = productService.getProduct(cartRequest.productId)
+        val product = productService.findProductById(cartRequest.productId)
         if (product.stockQuantity < cartRequest.quantity) throw IllegalArgumentException("Requested quantity exceeds stock quantity.")
 
         return Cart(
@@ -28,7 +28,7 @@ open class CartService(
     }
 
     @Transactional(readOnly = true)
-    open fun getCarts(userId: Long): List<CartResponse> {
+    fun getCarts(userId: Long): List<CartResponse> {
         return cartRepository.findByUserId(userId).map {
             CartResponse(
                 id = it.getId(),

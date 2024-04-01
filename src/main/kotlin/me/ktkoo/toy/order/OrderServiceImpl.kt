@@ -1,7 +1,7 @@
 package me.ktkoo.toy.order
 
+import me.ktkoo.toy.orderproduct.OrderProductDto
 import me.ktkoo.toy.orderproduct.OrderProductService
-import me.ktkoo.toy.product.ProductService
 import me.ktkoo.toy.user.UserService
 import mu.KotlinLogging
 import org.springframework.data.domain.Page
@@ -10,9 +10,8 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-open class OrderServiceImpl(
+class OrderServiceImpl(
     private val orderRepository: OrderRepository,
-    private val productService: ProductService,
     private val orderProductService: OrderProductService,
     private val userService: UserService
 ) : OrderService {
@@ -20,21 +19,23 @@ open class OrderServiceImpl(
     private val logger = KotlinLogging.logger {}
 
     @Transactional
-    override fun createOrder(orderDto: OrderDto, username: String): Order {
+    override fun createOrder(dto: OrderProductDto, username: String): Order {
 
         val order = Order(user = userService.getUserByUsername(username))
         val savedOrder = orderRepository.save(order)
         logger.info { "Order created: $savedOrder" }
 
-        orderDto.orderProduct.forEach {
-            val product = productService.getProduct(it.productId)
-            product.order(it.stockQuantity)
-            /**
-             * processOrderProduct를 OrderController에서 호출하지 않는 이유
-             * Controller에 비즈니스 로직을 알고 있어야 하기 때문입니다.
-             */
-            orderProductService.processOrderProduct(it, savedOrder, product)
-        }
+        orderProductService.addProductToOrder(dto, savedOrder)
+
+        return savedOrder
+    }
+
+    @Transactional
+    override fun createMultipleOrders(dtos: List<OrderProductDto>, username: String): Order {
+        val order = Order(user = userService.getUserByUsername(username))
+        val savedOrder = orderRepository.save(order)
+        logger.info { "Order created: $savedOrder" }
+        orderProductService.addProductsToOrder(dtos, savedOrder)
 
         return savedOrder
     }
