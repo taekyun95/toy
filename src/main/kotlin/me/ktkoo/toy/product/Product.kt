@@ -17,7 +17,7 @@ class Product(
     @Enumerated(EnumType.STRING)
     var status: ProductStatus = ProductStatus.AVAILABLE,
 ) {
-    fun order(stockQuantity: Long) {
+    fun deductProductStock(stockQuantity: Long) {
         if (stockQuantity > this.stockQuantity) {
             throw IllegalArgumentException("Requested quantity $stockQuantity exceeds available stock.")
         }

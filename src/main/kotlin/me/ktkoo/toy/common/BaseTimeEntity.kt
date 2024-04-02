@@ -3,7 +3,6 @@ package me.ktkoo.toy.common
 import jakarta.persistence.Column
 import jakarta.persistence.EntityListeners
 import jakarta.persistence.MappedSuperclass
-import java.time.LocalDateTime
 import java.time.ZonedDateTime
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
@@ -19,5 +18,5 @@ open class BaseTimeEntity {
 
     @LastModifiedDate
     @Column(name = "updated_at")
-    var updatedAt: LocalDateTime? = null
+    var updatedAt: ZonedDateTime = ZonedDateTime.now()
 }

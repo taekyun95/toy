@@ -4,7 +4,6 @@ import me.ktkoo.toy.jwt.JwtAuthFilter
 import me.ktkoo.toy.jwt.JwtService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider
@@ -32,18 +31,17 @@ class SecurityConfig(private val userDetailsService: UserDetailsService, private
     @Throws(Exception::class)
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         val jwtAuthFilter = JwtAuthFilter(jwtService, userDetailsService)
-        return http.csrf().disable()
+        return http
+            .csrf().disable()
             .authorizeHttpRequests()
-            .requestMatchers("/auth", "/api/users").permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/products").permitAll()
+                .requestMatchers("/auth", "/api/users").permitAll()
+                .anyRequest().authenticated()
             .and()
-            .authorizeHttpRequests().requestMatchers("/api/orders").authenticated()
+                .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .authenticationProvider(authenticationProvider())
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter::class.java)
+                .authenticationProvider(authenticationProvider())
+                    .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter::class.java)
             .build()
     }
 

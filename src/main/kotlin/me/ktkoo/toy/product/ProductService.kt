@@ -26,7 +26,7 @@ class ProductService(private val productRepository: ProductRepository) {
 
     fun deductProductStockForOrder(dto: OrderProductDto): Product {
         val product = this.findProductById(dto.productId)
-        product.order(dto.stockQuantity)
+        product.deductProductStock(dto.stockQuantity)
         return product
     }
 
