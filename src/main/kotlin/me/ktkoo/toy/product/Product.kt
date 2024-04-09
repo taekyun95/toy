@@ -47,4 +47,13 @@ class Product(
     fun getId(): Long {
         return id ?: throw Exception("Product id is null")
     }
+
+    fun toResponseDto(): ProductResponseDto {
+        return ProductResponseDto(
+            id = this.id!!,
+            name = this.name,
+            price = this.price,
+            stockQuantity = this.stockQuantity,
+        )
+    }
 }

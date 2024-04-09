@@ -40,4 +40,11 @@ class ProductService(private val productRepository: ProductRepository) {
     fun getProducts(pageable: Pageable): Page<Product> {
         return productRepository.findAll(pageable)
     }
+
+    @Transactional(readOnly = true)
+    fun getProduct(id: Long): ProductResponseDto {
+        return productRepository.findById(id)
+            .map { it.toResponseDto() }
+            .orElseThrow { NoSuchElementException("Product with id: $id not found.") }
+    }
 }

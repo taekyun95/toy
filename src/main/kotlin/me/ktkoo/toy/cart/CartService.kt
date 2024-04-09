@@ -13,8 +13,8 @@ class CartService(
     private val productService: ProductService,
 ) {
 
-    fun createCart(cartRequest: CartRequest): Cart {
-        val user = userService.getUser(cartRequest.userId)
+    fun createCart(cartRequest: CartRequest, username: String): Cart {
+        val user = userService.getUserByUsername(username)
         val product = productService.findProductById(cartRequest.productId)
         if (product.stockQuantity < cartRequest.quantity) throw IllegalArgumentException("Requested quantity exceeds stock quantity.")
 
