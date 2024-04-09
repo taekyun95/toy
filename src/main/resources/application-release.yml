@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: false
+        use_sql_comments: false
+        jdbc:
+          time_zone: UTC
+          batch_size: 30
+  data:
+    web:
+      pageable:
+        max-page-size: 100
+
+logging:
+  level:
+    root: INFO
+
+jwt:
+  expiry:
+    duration: "1800000" # 1000 * 60 * 30 // 30분
+  secret: "5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437"
