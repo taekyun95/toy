@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import java.math.BigDecimal
 
-data class ProductDto(
+data class RequestCreateProductDto(
     @NotBlank
     val name: String,
 

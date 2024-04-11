@@ -6,13 +6,25 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
-import me.ktkoo.toy.common.BaseEntity
+import org.hibernate.annotations.GenericGenerator
+import org.hibernate.annotations.Parameter
+import org.hibernate.cfg.AvailableSettings
+import org.hibernate.id.enhanced.SequenceStyleGenerator
 
 @Entity
 @Table(name = "Users")
 class User(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user-id-generator")
+    @GenericGenerator(
+        name = "user-id-generator",
+        strategy = "sequence",
+        parameters = [
+            Parameter(name = SequenceStyleGenerator.SEQUENCE_PARAM, value = "hibernate_sequence"),
+            Parameter(name = SequenceStyleGenerator.INCREMENT_PARAM, value = "1000"),
+            Parameter(name = AvailableSettings.PREFERRED_POOLED_OPTIMIZER, value = "pooled-lotl")
+        ]
+    )
     @Column(name = "id")
     val id: Long? = null,
 
@@ -29,7 +41,7 @@ class User(
 
     val roles: String = "ROLE_USER"
 
-) : BaseEntity() {
+) {
     companion object {
         fun fromDto(userDto: UserDto, password: String): User = User(
             username = userDto.username,

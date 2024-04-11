@@ -1,7 +1,10 @@
 package me.ktkoo.toy.cart
 
+import me.ktkoo.toy.auth.UserDetail
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -17,8 +20,9 @@ import org.springframework.web.bind.annotation.RestController
 class CartController(private val cartService: CartService) {
 
     @PostMapping
-    fun createCart(@RequestBody cartRequest: CartRequest): ResponseEntity<Cart> {
-        return ResponseEntity(cartService.createCart(cartRequest), HttpStatus.CREATED)
+    fun createCart(@RequestBody cartRequest: CartRequest, @AuthenticationPrincipal currentUserDetails: UserDetails): ResponseEntity<Cart> {
+        val username = (currentUserDetails as UserDetail).username
+        return ResponseEntity(cartService.createCart(cartRequest, username), HttpStatus.CREATED)
     }
 
     @PutMapping("/{id}")

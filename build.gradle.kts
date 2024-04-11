@@ -39,6 +39,7 @@ dependencies {
     implementation("mysql:mysql-connector-java:8.0.33")
     annotationProcessor("com.querydsl:querydsl-apt")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("com.h2database:h2:2.2.222")
 }
 
 tasks.withType<KotlinCompile> {
@@ -55,6 +56,8 @@ tasks.withType<JavaCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    // 테스트 실행 시 'test' 프로파일 활성화
+    systemProperty("spring.profiles.active", "test")
 }
 
 noArg {
