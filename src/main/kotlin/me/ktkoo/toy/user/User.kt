@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import java.io.Serializable
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Parameter
 import org.hibernate.cfg.AvailableSettings
@@ -41,7 +42,7 @@ class User(
 
     val roles: String = "ROLE_USER"
 
-) {
+):Serializable {
     companion object {
         fun fromDto(userDto: UserDto, password: String): User = User(
             username = userDto.username,
