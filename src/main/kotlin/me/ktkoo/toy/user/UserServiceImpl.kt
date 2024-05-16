@@ -39,11 +39,12 @@ class UserServiceImpl(private val userRepository: UserRepository, private val en
         return updatedUser
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     override fun getUser(id: Long): User {
         return userRepository.findById(id).orElseThrow { NoSuchElementException("User not found.") }
     }
 
+    @Transactional(readOnly = true)
     override fun getUserByUsername(username: String): User {
         return userRepository.findByUsername(username)
             .orElseThrow { throw UsernameNotFoundException("User not found $username") }
