@@ -38,6 +38,7 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
     implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
     implementation("mysql:mysql-connector-java:8.0.33")
+    implementation("org.apache.commons:commons-lang3:3.9")
     annotationProcessor("com.querydsl:querydsl-apt")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("com.h2database:h2:2.2.222")
