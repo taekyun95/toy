@@ -5,7 +5,5 @@ import me.ktkoo.toy.interfaces.user.UserUpdateDto
 
 interface UserService {
     fun store(command: UserCommand.RegisterUser): String
-    fun updateUser(id: Long, userUpdateDto: UserUpdateDto): User
-    fun getUser(id: Long): User
-    fun getUserByUsername(username: String): User
+    fun getUser(userToken: String): UserInfo.Main
 }

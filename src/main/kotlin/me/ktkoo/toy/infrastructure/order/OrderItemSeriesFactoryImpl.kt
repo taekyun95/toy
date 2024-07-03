@@ -1,10 +1,11 @@
 package me.ktkoo.toy.infrastructure.order
 
-import dev.practice.order.domain.order.item.OrderItemOption
+
 import java.util.stream.Collectors
 import me.ktkoo.toy.domain.item.ItemReader
 import me.ktkoo.toy.domain.order.Order
 import me.ktkoo.toy.domain.order.OrderCommand.RegisterOrder
+import me.ktkoo.toy.domain.order.OrderInfo
 import me.ktkoo.toy.domain.order.OrderItemSeriesFactory
 import me.ktkoo.toy.domain.order.OrderStore
 import me.ktkoo.toy.domain.order.item.OrderItem
@@ -29,7 +30,7 @@ class OrderItemSeriesFactoryImpl(
                     val initOrderItemOptionGroup: OrderItemOptionGroup = orderItemOptionGroupRequest.toEntity(orderItem)
                     val orderItemOptionGroup: OrderItemOptionGroup = orderStore.store(initOrderItemOptionGroup)
                     orderItemOptionGroupRequest.orderItemOptionList.forEach { orderItemOptionRequest ->
-                        val initOrderItemOption: OrderItemOption = orderItemOptionRequest.toEntity(orderItemOptionGroup)
+                        val initOrderItemOption = orderItemOptionRequest.toEntity(orderItemOptionGroup)
                         orderStore.store(initOrderItemOption)
                     }
                 }

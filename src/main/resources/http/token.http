@@ -12,11 +12,11 @@ Content-Type: application/json
 }
 
 ### jwt 토큰 발급
-POST {{baseUrl}}/auth
+POST http://tkkoo.shop:20000/auth
 Content-Type: application/json
 
 {
-  "username": "tkkoo",
+  "username": "user2",
   "password": "Pw1234!@#$"
 }
 > {%

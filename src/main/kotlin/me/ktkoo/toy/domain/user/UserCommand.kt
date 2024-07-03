@@ -1,7 +1,7 @@
 package me.ktkoo.toy.domain.user
 
 class UserCommand {
-    class RegisterUser(
+    data class RegisterUser(
         val username: String,
         val email: String,
         val password: String,
@@ -17,4 +17,10 @@ class UserCommand {
             )
         }
     }
+
+    data class UpdateUser(
+        val email: String,
+        val password: String,
+        val phoneNumber: String,
+    )
 }

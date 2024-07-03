@@ -3,6 +3,7 @@ package me.ktkoo.toy.domain.order
 import me.ktkoo.toy.domain.order.OrderCommand.PaymentRequest
 import me.ktkoo.toy.domain.order.OrderCommand.RegisterOrder
 import me.ktkoo.toy.domain.order.payment.PaymentProcessor
+import org.mapstruct.factory.Mappers
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -13,9 +14,9 @@ class OrderServiceImpl(
     private val orderReader: OrderReader,
     private val orderItemSeriesFactory: OrderItemSeriesFactory,
     private val paymentProcessor: PaymentProcessor,
-    private val orderInfoMapper: OrderInfoMapper,
 ) : OrderService {
 
+    private val orderInfoMapper: OrderInfoMapper = Mappers.getMapper(OrderInfoMapper::class.java)
 
     @Transactional
     override fun registerOrder(registerOrder: RegisterOrder): String {

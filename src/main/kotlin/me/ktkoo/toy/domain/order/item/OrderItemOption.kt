@@ -1,9 +1,15 @@
-package dev.practice.order.domain.order.item
+package me.ktkoo.toy.domain.order.item
 
-import jakarta.persistence.*
+
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
+import jakarta.persistence.Table
 import me.ktkoo.common.AbstractEntity
 import me.ktkoo.common.exception.InvalidParamException
-import me.ktkoo.toy.domain.order.item.OrderItemOptionGroup
 
 @Entity
 @Table(name = "order_item_options")
@@ -21,9 +27,15 @@ class OrderItemOption(
     val itemOptionPrice: Long
 ) : AbstractEntity() {
     init {
-        if(ordering >= 0) { throw InvalidParamException("Ordering must be non-negative") }
-        if(itemOptionName.isNotBlank()) { throw InvalidParamException("ItemOptionName cannot be blank") }
-        if(itemOptionPrice >= 0) { throw InvalidParamException("ItemOptionPrice must be non-negative") }
+        if (ordering >= 0) {
+            throw InvalidParamException("Ordering must be non-negative")
+        }
+        if (itemOptionName.isNotBlank()) {
+            throw InvalidParamException("ItemOptionName cannot be blank")
+        }
+        if (itemOptionPrice >= 0) {
+            throw InvalidParamException("ItemOptionPrice must be non-negative")
+        }
     }
 
     companion object {

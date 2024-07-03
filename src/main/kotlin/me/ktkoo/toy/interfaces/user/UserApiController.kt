@@ -3,6 +3,7 @@ package me.ktkoo.toy.interfaces.user
 import me.ktkoo.common.response.CommonResponse
 import me.ktkoo.toy.application.user.UserFacade
 import me.ktkoo.toy.domain.user.UserService
+import org.springframework.data.jpa.domain.AbstractPersistable_.id
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -28,20 +29,10 @@ class UserApiController(
         return CommonResponse.success(response)
     }
 
-    @PutMapping("/{userToken}")
-    fun updateUser(
-        @PathVariable userToken: String,
-        @RequestBody userUpdateDto: UserUpdateDto,
-    ): CommonResponse<String> {
-        val command = userDtoMapper.of(userUpdateDto)
-        userFacade.updateUserInfo(userToken, userUpdateDto)
-        return CommonResponse.success("OK")
-    }
-
-    @GetMapping("/{id}")
-    fun getUser(@PathVariable id: Long): ResponseEntity<Any> {
+    @GetMapping("/{userToken}")
+    fun getUser(@PathVariable userToken: String): ResponseEntity<Any> {
         return try {
-            val user = userService.getUser(id)
+            val user = userFacade.getUser(userToken)
             ResponseEntity.ok(user)
         } catch (e: NoSuchElementException) {
             ResponseEntity.notFound().build()

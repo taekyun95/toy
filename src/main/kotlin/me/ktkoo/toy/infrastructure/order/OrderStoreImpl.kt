@@ -1,6 +1,6 @@
 package me.ktkoo.toy.infrastructure.order
 
-import dev.practice.order.domain.order.item.OrderItemOption
+import me.ktkoo.toy.domain.order.item.OrderItemOption
 import me.ktkoo.toy.domain.order.Order
 import me.ktkoo.toy.domain.order.OrderRepository
 import me.ktkoo.toy.domain.order.OrderStore

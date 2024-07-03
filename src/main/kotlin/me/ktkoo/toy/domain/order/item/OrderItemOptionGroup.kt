@@ -1,6 +1,5 @@
 package me.ktkoo.toy.domain.order.item
 
-import dev.practice.order.domain.order.item.OrderItemOption
 import jakarta.persistence.*
 import me.ktkoo.common.AbstractEntity
 import me.ktkoo.common.exception.InvalidParamException

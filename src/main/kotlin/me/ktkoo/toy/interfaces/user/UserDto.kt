@@ -11,5 +11,11 @@ class UserDto{
     class RegisterResponse(
         private val orderToken: String,
     )
+
+    class UpdateUserRequest(
+        val email: String,
+        val password: String,
+        val phoneNumber: String,
+    )
 }
 

@@ -14,5 +14,6 @@ import org.mapstruct.*
 )
 interface UserDtoMapper {
     fun of(request: UserDto.RegisterUserRequest): UserCommand.RegisterUser
-    fun of(request: String): UserDto.RegisterResponse
+    fun of(orderToken: String): UserDto.RegisterResponse
+    fun of(request: UserDto.UpdateUserRequest): UserCommand.UpdateUser
 }
