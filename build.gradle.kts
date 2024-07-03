@@ -7,6 +7,7 @@ plugins {
     kotlin("jvm") version "1.7.22"
     kotlin("plugin.spring") version "1.7.22"
     kotlin("plugin.jpa") version "1.7.22"
+    id("org.jetbrains.kotlin.kapt") version "1.3.50"
 }
 
 group = "me.ktkoo"
@@ -22,6 +23,8 @@ configurations {
 repositories {
     mavenCentral()
 }
+
+apply(plugin = "kotlin-kapt")
 
 dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
@@ -42,6 +45,10 @@ dependencies {
     annotationProcessor("com.querydsl:querydsl-apt")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("com.h2database:h2:2.2.222")
+
+    implementation("org.mapstruct:mapstruct:1.3.0.Final")
+    kapt("org.mapstruct:mapstruct-processor:1.3.0.Final")
+    kaptTest("org.mapstruct:mapstruct-processor:1.3.0.Final")
 }
 
 tasks.withType<KotlinCompile> {
