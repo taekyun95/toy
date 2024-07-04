@@ -1,6 +1,5 @@
 package me.ktkoo.toy.infrastructure.notification
 
-import me.ktkoo.common.aop.LoggingAspect
 import me.ktkoo.toy.domain.notification.NotificationService
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Component
 @Component
 class NotificationExecutor : NotificationService {
     companion object {
-        private val log = LoggerFactory.getLogger(LoggingAspect::class.java)
+        private val log = LoggerFactory.getLogger(NotificationExecutor::class.java)
     }
 
     override fun sendEmail(email: String?, title: String?, description: String?) {

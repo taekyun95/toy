@@ -1,4 +1,4 @@
-package me.ktkoo.common.jwt
+package me.ktkoo.toy.domain.jwt
 
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts

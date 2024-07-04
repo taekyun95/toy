@@ -1,6 +1,6 @@
 package me.ktkoo.toy.interfaces.auth
 
-import me.ktkoo.common.jwt.JwtService
+import me.ktkoo.toy.domain.jwt.JwtService
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/v1/auths")
 class TokenApiController(
     private val jwtService: JwtService,
     private val authenticationManager: AuthenticationManager

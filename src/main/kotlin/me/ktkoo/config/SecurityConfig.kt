@@ -1,7 +1,7 @@
 package me.ktkoo.config
 
-import me.ktkoo.common.jwt.JwtAuthFilter
-import me.ktkoo.common.jwt.JwtService
+import me.ktkoo.common.filter.JwtAuthFilter
+import me.ktkoo.toy.domain.jwt.JwtService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -35,7 +35,7 @@ class SecurityConfig(private val userDetailsService: UserDetailsService, private
         return http
             .csrf().disable()
             .authorizeHttpRequests()
-                .requestMatchers("/auth", "/api/users").permitAll()
+                .requestMatchers("/api/v1/auths", "/api/v1/users").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/products", "/api/products/{id}").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/carts").hasAnyRole("USER")
                 .anyRequest().authenticated()

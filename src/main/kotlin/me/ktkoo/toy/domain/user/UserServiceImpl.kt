@@ -1,13 +1,10 @@
 package me.ktkoo.toy.domain.user
 
-import me.ktkoo.extensions.isValidEmail
+import me.ktkoo.common.exception.InvalidParamException
 import me.ktkoo.extensions.isValidPassword
 import me.ktkoo.extensions.isValidPhoneNumber
 import me.ktkoo.toy.infrastructure.user.UserRepository
-import me.ktkoo.toy.interfaces.user.UserUpdateDto
 import org.mapstruct.factory.Mappers
-import org.springframework.data.jpa.domain.AbstractPersistable_.id
-import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -38,18 +35,18 @@ class UserServiceImpl(
 
     private fun validateUserInput(command: UserCommand.RegisterUser) {
         if (userRepository.existsByUsername(command.username)) {
-            throw IllegalArgumentException("Username is already taken")
+            throw InvalidParamException("Username is already taken")
         }
         if (userRepository.existsByEmail(command.email)) {
-            throw IllegalArgumentException("Email is already in use")
+            throw InvalidParamException("Email is already in use")
         }
 
         if (!command.password.isValidPassword()) {
-            throw IllegalArgumentException("Invalid password format.")
+            throw InvalidParamException("Invalid password format.")
         }
 
         if (!command.phoneNumber.isValidPhoneNumber()) {
-            throw IllegalArgumentException("Invalid phone number format.")
+            throw InvalidParamException("Invalid phone number format.")
         }
     }
 }
