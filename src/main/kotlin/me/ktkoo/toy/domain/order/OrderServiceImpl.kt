@@ -16,7 +16,7 @@ class OrderServiceImpl(
     private val paymentProcessor: PaymentProcessor,
 ) : OrderService {
 
-    private val orderInfoMapper: OrderInfoMapper = Mappers.getMapper(OrderInfoMapper::class.java)
+    private val orderInfoMapper = Mappers.getMapper(OrderInfoMapper::class.java)
 
     @Transactional
     override fun registerOrder(registerOrder: RegisterOrder): String {

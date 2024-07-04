@@ -14,7 +14,7 @@ import org.hibernate.cfg.AvailableSettings
 import org.hibernate.id.enhanced.SequenceStyleGenerator
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 class User(
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user-id-generator")

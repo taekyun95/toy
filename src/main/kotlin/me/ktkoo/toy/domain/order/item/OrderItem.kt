@@ -11,27 +11,27 @@ import me.ktkoo.toy.domain.order.Order
 class OrderItem constructor(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val id: Long? = null,
+    val id: Long? = null,
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private val order: Order,
+    val order: Order,
 
-    private val orderCount: Int,
-    private val partnerId: Long,
-    private val itemId: Long,
-    private val itemName: String,
-    private val itemToken: String,
-    private val itemPrice: Long,
+    val orderCount: Int,
+    val partnerId: Long,
+    val itemId: Long,
+    val itemName: String,
+    val itemToken: String,
+    val itemPrice: Long,
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderItem", cascade = [CascadeType.PERSIST])
-    private val orderItemOptionGroupList: List<OrderItemOptionGroup> = listOf(),
+    val orderItemOptionGroupList: List<OrderItemOptionGroup> = listOf(),
 
     @Enumerated(EnumType.STRING)
-    private val deliveryStatus: DeliveryStatus = DeliveryStatus.BEFORE_DELIVERY
+    val deliveryStatus: DeliveryStatus = DeliveryStatus.BEFORE_DELIVERY
 ) : AbstractEntity() {
 
 
-    enum class DeliveryStatus(private val description: String) {
+    enum class DeliveryStatus(val description: String) {
         BEFORE_DELIVERY("배송전"),
         DELIVERY_PREPARE("배송준비중"),
         DELIVERING("배송중"),

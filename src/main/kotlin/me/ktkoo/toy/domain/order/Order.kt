@@ -10,6 +10,7 @@ import me.ktkoo.toy.domain.order.item.OrderItem
 
 
 @Entity
+@Table(name = "orders")
 class Order(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

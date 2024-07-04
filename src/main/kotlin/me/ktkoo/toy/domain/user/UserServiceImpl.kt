@@ -18,9 +18,9 @@ class UserServiceImpl(
     private val userRead: UserRead,
     private val userRepository: UserRepository,
     private val encoder: PasswordEncoder,
-
 ) : UserService {
-    var userInfoMapper: UserInfoMapper = Mappers.getMapper(UserInfoMapper::class.java)
+
+    private val userInfoMapper = Mappers.getMapper(UserInfoMapper::class.java)
 
     override fun store(command: UserCommand.RegisterUser): String {
         validateUserInput(command)

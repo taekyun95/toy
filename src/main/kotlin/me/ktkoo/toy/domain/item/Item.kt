@@ -9,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Parameter
 
 @Entity
+@Table(name = "items")
 class Item(
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item-id-generator")

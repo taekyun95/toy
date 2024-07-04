@@ -5,48 +5,48 @@ import java.time.ZonedDateTime
 
 class OrderInfo {
     class Main(
-        private val orderId: Long,
-        private val orderToken: String,
-        private val userId: Long,
-        private val payMethod: String,
-        private val totalAmount: Long,
-        private val deliveryInfo: DeliveryInfo,
-        private val orderedAt: ZonedDateTime,
-        private val status: String,
-        private val statusDescription: String,
-        private val orderItemList: List<OrderItem>,
+        val orderId: Long,
+        val orderToken: String,
+        val userId: Long,
+        val payMethod: String,
+        val totalAmount: Long,
+        val deliveryInfo: DeliveryInfo,
+        val orderedAt: ZonedDateTime,
+        val status: String,
+        val statusDescription: String,
+        val orderItemList: List<OrderItem>,
     )
 
     class DeliveryInfo(
-        private val receiverName: String,
-        private val receiverPhone: String,
-        private val receiverZipcode: String,
-        private val receiverAddress1: String,
-        private val receiverAddress2: String,
-        private val etcMessage: String,
+        val receiverName: String,
+        val receiverPhone: String,
+        val receiverZipcode: String,
+        val receiverAddress1: String,
+        val receiverAddress2: String,
+        val etcMessage: String,
     )
 
     class OrderItem(
-        private val orderCount: Int,
-        private val partnerId: Long,
-        private val itemId: Long,
-        private val itemName: String,
-        private val totalAmount: Long,
-        private val itemPrice: Long,
-        private val deliveryStatus: String,
-        private val deliveryStatusDescription: String,
-        private val orderItemOptionGroupList: List<OrderItemOptionGroup>,
+        val orderCount: Int,
+        val partnerId: Long,
+        val itemId: Long,
+        val itemName: String,
+        val totalAmount: Long,
+        val itemPrice: Long,
+        val deliveryStatus: String,
+        val deliveryStatusDescription: String,
+        val orderItemOptionGroupList: List<OrderItemOptionGroup>,
     )
 
     class OrderItemOptionGroup(
-        private val ordering: Int,
-        private val itemOptionGroupName: String,
-        private val orderItemOptionList: List<OrderItemOption>,
+        val ordering: Int,
+        val itemOptionGroupName: String,
+        val orderItemOptionList: List<OrderItemOption>,
     )
 
     class OrderItemOption(
-        private val ordering: Int,
-        private val itemOptionName: String,
-        private val itemOptionPrice: Long,
+        val ordering: Int,
+        val itemOptionName: String,
+        val itemOptionPrice: Long,
     )
 }

@@ -1,14 +1,16 @@
 package me.ktkoo.toy.domain.order.fragment
 
+import jakarta.persistence.Embeddable
 import me.ktkoo.common.exception.InvalidParamException
 
+@Embeddable
 class DeliveryFragment(
-    private val receiverName: String,
-    private val receiverPhone: String,
-    private val receiverZipcode: String,
-    private val receiverAddress1: String,
-    private val receiverAddress2: String,
-    private val etcMessage: String
+    val receiverName: String,
+    val receiverPhone: String,
+    val receiverZipcode: String,
+    val receiverAddress1: String,
+    val receiverAddress2: String,
+    val etcMessage: String
 ) {
     init {
         validateParam(receiverName, "DeliveryFragment receiverName must not be empty.")
