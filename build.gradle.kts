@@ -7,6 +7,7 @@ plugins {
     kotlin("jvm") version "1.7.22"
     kotlin("plugin.spring") version "1.7.22"
     kotlin("plugin.jpa") version "1.7.22"
+    id("org.jetbrains.kotlin.kapt") version "1.3.50"
 }
 
 group = "me.ktkoo"
@@ -23,12 +24,13 @@ repositories {
     mavenCentral()
 }
 
+apply(plugin = "kotlin-kapt")
+
 dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    implementation("ch.qos.logback:logback-classic:1.4.6")
+    implementation("ch.qos.logback:logback-classic:1.4.12")
     implementation("com.querydsl:querydsl-jpa")
     implementation("io.github.microutils:kotlin-logging:3.0.5")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -38,9 +40,14 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
     implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
     implementation("mysql:mysql-connector-java:8.0.33")
+    implementation("org.apache.commons:commons-lang3:3.9")
     annotationProcessor("com.querydsl:querydsl-apt")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("com.h2database:h2:2.2.222")
+
+    implementation("org.mapstruct:mapstruct:1.4.2.Final")
+    kapt("org.mapstruct:mapstruct-processor:1.4.2.Final")
+    kaptTest("org.mapstruct:mapstruct-processor:1.3.0.Final")
 }
 
 tasks.withType<KotlinCompile> {
@@ -53,6 +60,7 @@ tasks.withType<KotlinCompile> {
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
     options.compilerArgs.add("-parameters")
+    options.annotationProcessorPath = configurations["annotationProcessor"]
 }
 
 tasks.withType<Test> {

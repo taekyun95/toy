@@ -1,0 +1,10 @@
+### 사용자 등록
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "username": "test",
+  "email": "test@gmail.com",
+  "password": "Pw1234!@#$",
+  "phoneNumber": "+82 10 0000 0000"
+}

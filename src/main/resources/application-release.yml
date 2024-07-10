@@ -7,7 +7,7 @@ spring:
     show-sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
         format_sql: false
         use_sql_comments: false
         jdbc:
@@ -17,10 +17,6 @@ spring:
     web:
       pageable:
         max-page-size: 100
-  cache:
-    redis:
-      host: host.docker.internal
-      port: 6379
 logging:
   level:
     root: INFO

@@ -1,28 +1,6 @@
 version: '3.8'
 
 services:
-  pinpoint-agent:
-    container_name: "pinpoint-agent"
-    image: "pinpointdocker/pinpoint-agent:${PINPOINT_VERSION}"
-    # restart: unless-stopped
-    networks:
-      - toy_commerce-network
-    volumes:
-      - data-volume:/pinpoint-agent
-    environment:
-      - SPRING_PROFILES=${SPRING_PROFILES}
-      - COLLECTOR_IP=${COLLECTOR_IP}
-      - PROFILER_TRANSPORT_AGENT_COLLECTOR_PORT=${PROFILER_TRANSPORT_AGENT_COLLECTOR_PORT}
-      - PROFILER_TRANSPORT_METADATA_COLLECTOR_PORT=${PROFILER_TRANSPORT_METADATA_COLLECTOR_PORT}
-      - PROFILER_TRANSPORT_STAT_COLLECTOR_PORT=${PROFILER_TRANSPORT_STAT_COLLECTOR_PORT}
-      - PROFILER_TRANSPORT_SPAN_COLLECTOR_PORT=${PROFILER_TRANSPORT_SPAN_COLLECTOR_PORT}
-      - PROFILER_SAMPLING_TYPE=${PROFILER_SAMPLING_TYPE}
-      - PROFILER_SAMPLING_COUNTING_SAMPLING_RATE=${PROFILER_SAMPLING_COUNTING_SAMPLING_RATE}
-      - PROFILER_SAMPLING_PERCENT_SAMPLING_RATE=${PROFILER_SAMPLING_PERCENT_SAMPLING_RATE}
-      - PROFILER_SAMPLING_NEW_THROUGHPUT=${PROFILER_SAMPLING_NEW_THROUGHPUT}
-      - PROFILER_SAMPLING_CONTINUE_THROUGHPUT=${PROFILER_SAMPLING_CONTINUE_THROUGHPUT}
-      - DEBUG_LEVEL=${AGENT_DEBUG_LEVEL}
-      - PROFILER_TRANSPORT_MODULE=${PROFILER_TRANSPORT_MODULE}
   redis:
     image: redis:latest
     ports:
@@ -39,53 +17,12 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     ports:
-      - "20000:3306"
+      - "3306:3306"
     volumes:
       - toy_commerce_mysql_data:/var/lib/mysql
-      - ./init:/docker-entrypoint-initdb.d
     command: --default-authentication-plugin=mysql_native_password
     restart: always
-    networks:
-      - toy_commerce-network
-    # deploy:
-    #   resources:
-    #     limits:
-    #       cpus: '1'
-    #       memory: 1G
-  toy-commerce-app:
-    image: taekyun95/toy-ecommerce:latest
-    platform: linux/arm64/v8
-    ports:
-      - "21000:8080"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://toy-commerce-mysql:3306/toy?useSSL=false&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: password
-      SPRING_DATASOURCE_HIKARI_MINIMUM-IDLE: 201
-      SPRING_DATASOURCE_HIKARI_MAXIMUM-POOL-SIZE: 225
-      SPRING_REDIS_LETTUCE_POOL_MAX-ACTIVE: 50
-      SPRING_REDIS_LETTUCE_POOL_MAX-IDLE: 20
-      SPRING_REDIS_LETTUCE_POOL_MIN-IDLE: 10
-      JAVA_OPTS: "-javaagent:/pinpoint-agent/pinpoint-bootstrap.jar -Dpinpoint.agentId=${AGENT_ID} -Dpinpoint.applicationName=${APP_NAME} -Dpinpoint.profiler.profiles.active=${SPRING_PROFILES} -Dspring.profiles.active=${SPRING_PROFILES}"
-    networks:
-      - toy_commerce-network
-    # deploy:
-    #   resources:
-    #     limits:
-    #       cpus: '1'
-    #       memory: 1G
-    volumes:
-      - data-volume:/pinpoint-agent
-    depends_on:
-      - toy-commerce-mysql
-      - pinpoint-agent
-      - redis
 
 volumes:
-  data-volume:
   toy_commerce_mysql_data:
   redis_data:
-
-networks:
-  toy_commerce-network:
-    external: true

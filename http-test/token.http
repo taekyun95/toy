@@ -1,0 +1,13 @@
+@baseUrl=http://localhost:8080
+
+### jwt 토큰 발급
+POST http://tkkoo.shop:20000/auth
+Content-Type: application/json
+
+{
+  "username": "user2",
+  "password": "Pw1234!@#$"
+}
+> {%
+    client.global.set("auth_token", response.body);
+%}
