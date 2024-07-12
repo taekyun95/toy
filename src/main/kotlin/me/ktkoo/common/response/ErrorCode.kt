@@ -8,8 +8,12 @@ enum class ErrorCode(val errorMsg: String) {
 
     // GIFT
     GIFT_NOT_RECEIVABLE_CONDITION("선물 수락이 가능한 상태가 아닙니다."),
-    GIFT_NOT_MODIFY_DELIVERY_CONDITION("배송지 변경이 가능한 상태가 아닙니다.");
+    GIFT_NOT_MODIFY_DELIVERY_CONDITION("배송지 변경이 가능한 상태가 아닙니다."),
 
+    // COUPON
+    COUPONS_ISSUED_HAS_BEEN_EXCEEDED("쿠폰 발급 수량이 초과했습니다."),
+
+    ;
     fun getErrorMsg(vararg arg: Any): String {
         return String.format(errorMsg, *arg)
     }
