@@ -35,9 +35,10 @@ class SecurityConfig(private val userDetailsService: UserDetailsService, private
         return http
             .csrf().disable()
             .authorizeHttpRequests()
-                .requestMatchers("/api/v1/auths", "/api/v1/users").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/products", "/api/products/{id}").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/carts").hasAnyRole("USER")
+                .requestMatchers(HttpMethod.GET, "").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/users", "/api/v1/partners", "/api/v1/tokens").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/items/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/orders/**").hasAnyRole("USER")
                 .anyRequest().authenticated()
             .and()
                 .sessionManagement()

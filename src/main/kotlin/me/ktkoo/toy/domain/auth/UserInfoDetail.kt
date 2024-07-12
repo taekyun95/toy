@@ -10,6 +10,7 @@ class UserDetailsImpl(user: User) : UserDetails {
     private val username: String = user.username
     private val password: String = user.password
     val userToken: String = user.userToken
+    val userId: Long = user.id!!
     private val authorities: Collection<GrantedAuthority> = user.roles.split(",")
         .map { role -> SimpleGrantedAuthority(role.trim()) }
 

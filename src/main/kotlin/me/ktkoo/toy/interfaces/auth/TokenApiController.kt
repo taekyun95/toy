@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/api/v1/auths")
+@RequestMapping("/api/v1/tokens")
 class TokenApiController(
     private val jwtService: JwtService,
     private val authenticationManager: AuthenticationManager

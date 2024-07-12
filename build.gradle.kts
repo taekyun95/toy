@@ -28,7 +28,7 @@ apply(plugin = "kotlin-kapt")
 
 dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    implementation("ch.qos.logback:logback-classic:1.4.12")
+    implementation("ch.qos.logback:logback-classic:1.4.6")
     implementation("com.querydsl:querydsl-jpa")
     implementation("io.github.microutils:kotlin-logging:3.0.5")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -48,6 +48,8 @@ dependencies {
     implementation("org.mapstruct:mapstruct:1.4.2.Final")
     kapt("org.mapstruct:mapstruct-processor:1.4.2.Final")
     kaptTest("org.mapstruct:mapstruct-processor:1.3.0.Final")
+
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 }
 
 tasks.withType<KotlinCompile> {

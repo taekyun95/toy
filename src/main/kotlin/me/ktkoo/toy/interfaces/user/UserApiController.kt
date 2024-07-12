@@ -2,7 +2,6 @@ package me.ktkoo.toy.interfaces.user
 
 import me.ktkoo.common.response.CommonResponse
 import me.ktkoo.toy.application.user.UserFacade
-import me.ktkoo.toy.domain.user.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/users")
 class UserApiController(
-    private val userService: UserService,
     private val userDtoMapper: UserDtoMapper,
     private val userFacade: UserFacade
 ) {

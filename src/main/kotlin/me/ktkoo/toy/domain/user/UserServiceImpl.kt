@@ -4,7 +4,6 @@ import me.ktkoo.common.exception.InvalidParamException
 import me.ktkoo.extensions.isValidPassword
 import me.ktkoo.extensions.isValidPhoneNumber
 import me.ktkoo.toy.infrastructure.user.UserRepository
-import org.mapstruct.factory.Mappers
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -15,9 +14,8 @@ class UserServiceImpl(
     private val userRead: UserRead,
     private val userRepository: UserRepository,
     private val encoder: PasswordEncoder,
+    private val userInfoMapper: UserInfoMapper
 ) : UserService {
-
-    private val userInfoMapper = Mappers.getMapper(UserInfoMapper::class.java)
 
     override fun store(command: UserCommand.RegisterUser): String {
         validateUserInput(command)

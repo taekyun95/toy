@@ -1,9 +1,14 @@
 package me.ktkoo.toy.interfaces.item
 
 import jakarta.validation.Valid
-import me.ktkoo.toy.application.item.ItemFacade
 import me.ktkoo.common.response.CommonResponse
-import org.springframework.web.bind.annotation.*
+import me.ktkoo.toy.application.item.ItemFacade
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 
 @RestController
@@ -23,14 +28,14 @@ class ItemApiController(
     }
 
     @PostMapping("/change-on-sales")
-    fun changeOnSaleItem(@Valid @RequestBody request: ItemDto.ChangeStatusItemRequest): CommonResponse<*> {
+    fun changeOnSaleItem(@RequestBody request: ItemDto.ChangeStatusItemRequest): CommonResponse<*> {
         val itemToken = request.itemToken
         itemFacade.changeOnSaleItem(itemToken)
         return CommonResponse.success("OK")
     }
 
     @PostMapping("/change-end-of-sales")
-    fun changeEndOfSaleItem(@Valid @RequestBody request: ItemDto.ChangeStatusItemRequest): CommonResponse<*> {
+    fun changeEndOfSaleItem(@RequestBody request: ItemDto.ChangeStatusItemRequest): CommonResponse<*> {
         val itemToken = request.itemToken
         itemFacade.changeEndOfSaleItem(itemToken)
         return CommonResponse.success("OK")

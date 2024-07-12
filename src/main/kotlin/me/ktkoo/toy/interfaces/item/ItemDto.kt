@@ -8,13 +8,13 @@ class ItemDto {
         val partnerToken: String,
         val itemName: String,
         val itemPrice: Long,
-        val itemOptionGroupList: List<RegisterItemOptionGroupRequest>,
+        val itemOptionGroupList: List<RegisterItemOptionGroupRequest> = emptyList(),
     )
 
     class RegisterItemOptionGroupRequest(
         val ordering: Int,
         val itemOptionGroupName: String,
-        val itemOptionList: List<RegisterItemOptionRequest>,
+        val itemOptionList: List<RegisterItemOptionRequest> = emptyList(),
     )
 
     class RegisterItemOptionRequest(

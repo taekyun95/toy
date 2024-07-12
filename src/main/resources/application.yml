@@ -6,7 +6,7 @@ spring:
     password: password
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:
@@ -17,6 +17,7 @@ spring:
           time_zone: UTC
           batch_size: 50
           fetch_size: 50
+    open-in-view: false
 
   data:
     web:
