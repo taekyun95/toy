@@ -1,12 +1,12 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/toy?useSSL=false&serverTimezone=UTC
-    username: user
-    password: password
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:
@@ -17,14 +17,16 @@ spring:
           time_zone: UTC
           batch_size: 50
           fetch_size: 50
+    open-in-view: false
 
   data:
     web:
       pageable:
         max-page-size: 100
-
 #logging:
 #  level:
+#    org:
+#      springframework: debug
 #    root: INFO
 #    me.ktkoo: DEBUG
 jwt:
